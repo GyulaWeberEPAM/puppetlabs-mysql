@@ -12,19 +12,19 @@ class mysql::server::root_password {
     "mysqladmin -u root --password=\$(grep -o '[^ ]\\+\$' ${secret_file}) password ''",
     "rm -f ${secret_file}"
   ], ' && ')
-  exec { 'remove install pass':
-    command => $rm_pass_cmd,
-    onlyif  => "test -f ${secret_file}",
-    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
-  }
+  # exec { 'remove install pass':
+  #   command => $rm_pass_cmd,
+  #   onlyif  => "test -f ${secret_file}",
+  #   path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
+  # }
 
   # manage root password if it is set
   if $mysql::server::create_root_user == true and $mysql::server::root_password != 'UNSET' {
-    mysql_user { 'root@localhost':
-      ensure        => present,
-      password_hash => mysql_password($mysql::server::root_password),
-      require       => Exec['remove install pass']
-    }
+     exec {'create-initial-root-user':
+       command => "mysqladmin -u root -p'' password $mysql::server::root_password",
+       unless => "test -f /tmp/mysql-datadir-exists",
+       path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
+     }
   }
 
   if $mysql::server::create_root_my_cnf == true and $mysql::server::root_password != 'UNSET' {
@@ -39,8 +39,15 @@ class mysql::server::root_password {
       File["${::root_home}/.my.cnf"] { show_diff => false }
     }
     if $mysql::server::create_root_user == true {
-      Mysql_user['root@localhost'] -> File["${::root_home}/.my.cnf"]
+      # Mysql_user['root@localhost'] -> File["${::root_home}/.my.cnf"]
     }
+  } else {
+    file { "${::root_home}/.my.cnf":
+      content => template('mysql/my.cnf.pass.erb'),
+      owner   => 'root',
+      mode    => '0600',
+    }
+
   }
 
 }
