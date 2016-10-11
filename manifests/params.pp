@@ -80,7 +80,7 @@ class mysql::params {
       $datadir                 = '/var/lib/mysql'
       $root_group              = 'root'
       $mysql_group             = 'mysql'
-      $socket                  = '/var/lib/mysql/mysql.sock'
+      $socket                  = '/var/run/mysqld/mysqld.sock'
       $ssl_ca                  = '/etc/mysql/cacert.pem'
       $ssl_cert                = '/etc/mysql/server-cert.pem'
       $ssl_key                 = '/etc/mysql/server-key.pem'
