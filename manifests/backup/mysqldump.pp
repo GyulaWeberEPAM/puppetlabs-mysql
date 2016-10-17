@@ -24,24 +24,10 @@ class mysql::backup::mysqldump (
 
   ensure_packages(['bzip2'])
 
-  mysql_user { "${backupuser}@localhost":
-    ensure        => $ensure,
-    password_hash => mysql_password($backuppassword),
-    require       => Class['mysql::server::root_password'],
-  }
-
   if $include_triggers  {
     $privs = [ 'SELECT', 'RELOAD', 'LOCK TABLES', 'SHOW VIEW', 'PROCESS', 'TRIGGER' ]
   } else {
     $privs = [ 'SELECT', 'RELOAD', 'LOCK TABLES', 'SHOW VIEW', 'PROCESS' ]
-  }
-
-  mysql_grant { "${backupuser}@localhost/*.*":
-    ensure     => $ensure,
-    user       => "${backupuser}@localhost",
-    table      => '*.*',
-    privileges => $privs,
-    require    => Mysql_user["${backupuser}@localhost"],
   }
 
   cron { 'mysql-backup':
