@@ -7,6 +7,8 @@ class mysql::client (
   $package_name    = $mysql::params::client_package_name,
 ) inherits mysql::params {
 
+  include '::mysql::client::install'
+
   if $bindings_enable {
     class { 'mysql::bindings':
       java_enable   => true,
