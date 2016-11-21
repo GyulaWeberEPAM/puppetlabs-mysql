@@ -37,18 +37,10 @@ class mysql::params {
     'RedHat': {
       case $::operatingsystem {
         'Fedora': {
-          if versioncmp($::operatingsystemrelease, '19') >= 0 or $::operatingsystemrelease == 'Rawhide' {
-            $provider = 'mariadb'
-          } else {
-            $provider = 'mysql'
-          }
+           $provider = 'mysql'
         }
         /^(RedHat|CentOS|Scientific|OracleLinux)$/: {
-          if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
-            $provider = 'mariadb'
-          } else {
             $provider = 'mysql'
-          }
         }
         default: {
           $provider = 'mysql'
