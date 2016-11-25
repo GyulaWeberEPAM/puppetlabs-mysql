@@ -73,9 +73,6 @@ class mysql::params {
       $root_group              = 'root'
       $mysql_group             = 'mysql'
       $socket                  = '/var/run/mysqld/mysqld.sock'
-      $ssl_ca                  = '/etc/mysql/cacert.pem'
-      $ssl_cert                = '/etc/mysql/server-cert.pem'
-      $ssl_key                 = '/etc/mysql/server-key.pem'
       $tmpdir                  = '/tmp'
       # mysql::bindings
       $java_package_name       = 'mysql-connector-java'
@@ -141,9 +138,6 @@ class mysql::params {
         $socket = '/var/run/mysql/mysql.sock'
       }
 
-      $ssl_ca              = '/etc/mysql/cacert.pem'
-      $ssl_cert            = '/etc/mysql/server-cert.pem'
-      $ssl_key             = '/etc/mysql/server-key.pem'
       $tmpdir              = '/tmp'
       # mysql::bindings
       $java_package_name   = 'mysql-connector-java'
@@ -172,9 +166,6 @@ class mysql::params {
       $mysql_group             = 'adm'
       $server_service_name     = 'mysql'
       $socket                  = '/var/run/mysqld/mysqld.sock'
-      $ssl_ca                  = '/etc/mysql/cacert.pem'
-      $ssl_cert                = '/etc/mysql/server-cert.pem'
-      $ssl_key                 = '/etc/mysql/server-key.pem'
       $tmpdir                  = '/tmp'
       # mysql::bindings
       $java_package_name   = 'libmysql-java'
@@ -206,9 +197,6 @@ class mysql::params {
       $mysql_group         = 'mysql'
       $server_service_name = 'mysqld'
       $socket              = '/var/lib/mysql/mysql.sock'
-      $ssl_ca              = '/etc/mysql/cacert.pem'
-      $ssl_cert            = '/etc/mysql/server-cert.pem'
-      $ssl_key             = '/etc/mysql/server-key.pem'
       $tmpdir              = '/tmp'
       # mysql::bindings
       $java_package_name   = 'mysql-connector-java'
@@ -230,9 +218,6 @@ class mysql::params {
       $mysql_group         = 'mysql'
       $server_service_name = 'mysql'
       $socket              = '/run/mysqld/mysqld.sock'
-      $ssl_ca              = '/etc/mysql/cacert.pem'
-      $ssl_cert            = '/etc/mysql/server-cert.pem'
-      $ssl_key             = '/etc/mysql/server-key.pem'
       $tmpdir              = '/tmp'
       # mysql::bindings
       $java_package_name   = 'dev-java/jdbc-mysql'
@@ -255,9 +240,6 @@ class mysql::params {
       $mysql_group         = 'mysql'
       $server_service_name = 'mysql-server'
       $socket              = '/var/db/mysql/mysql.sock'
-      $ssl_ca              = undef
-      $ssl_cert            = undef
-      $ssl_key             = undef
       $tmpdir              = '/tmp'
       # mysql::bindings
       $java_package_name   = 'databases/mysql-connector-java'
@@ -283,9 +265,6 @@ class mysql::params {
       $mysql_group         = '_mysql'
       $server_service_name = 'mysqld'
       $socket              = '/var/run/mysql/mysql.sock'
-      $ssl_ca              = undef
-      $ssl_cert            = undef
-      $ssl_key             = undef
       $tmpdir              = '/tmp'
       # mysql::bindings
       $java_package_name   = undef
@@ -309,9 +288,6 @@ class mysql::params {
       $root_group          = 'bin'
       $server_service_name = 'application/database/mysql:version_55'
       $socket              = '/tmp/mysql.sock'
-      $ssl_ca              = undef
-      $ssl_cert            = undef
-      $ssl_key             = undef
       $tmpdir              = '/tmp'
       # mysql::bindings
       $java_package_name   = undef
@@ -339,9 +315,6 @@ class mysql::params {
           $mysql_group         = 'mysql'
           $server_service_name = 'mysqld'
           $socket              = '/var/lib/mysql/mysql.sock'
-          $ssl_ca              = '/etc/mysql/cacert.pem'
-          $ssl_cert            = '/etc/mysql/server-cert.pem'
-          $ssl_key             = '/etc/mysql/server-key.pem'
           $tmpdir              = '/tmp'
           # mysql::bindings
           $java_package_name   = 'mysql-connector-java'
@@ -415,10 +388,7 @@ class mysql::params {
       'query_cache_size'      => '16M',
       'skip-external-locking' => true,
       'socket'                => $mysql::params::socket,
-      'ssl'                   => false,
-      'ssl-ca'                => $mysql::params::ssl_ca,
-      'ssl-cert'              => $mysql::params::ssl_cert,
-      'ssl-key'               => $mysql::params::ssl_key,
+      'ssl'                   => true,
       'ssl-disable'           => false,
       'thread_cache_size'     => '8',
       'thread_stack'          => '256K',
