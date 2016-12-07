@@ -1,6 +1,8 @@
 
 # mysql
 
+This module has been altered, so this documentation mostly applies to the original puppetlabls/mysql.
+
 #### Table of Contents
 
 1. [Module Description - What the module does and why it is useful](#module-description)
